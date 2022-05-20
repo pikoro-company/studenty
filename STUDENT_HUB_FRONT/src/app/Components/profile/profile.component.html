@@ -1,0 +1,68 @@
+<div *ngIf="user" class="wrap-box">
+  <div class="cover-picture-box">
+    <div class="cover-picture">
+      <img class="CP" src="http://localhost:9091/User/{{ user.coverImage }}" alt="Photo de Couverture" />
+    </div>
+  </div>
+  <img src="http://localhost:9091/User/{{ user.profileImage }}" alt="Photo de profile" class="profile-picture" alt="Profile-picture"/>
+  <h3>{{ user.nom }} {{ user.prenom }}</h3>
+  <div class="row">
+    <div  class="col-md-7">
+      <div class="user-information">
+        <ul class="user-info">
+          <li class="user-item">
+            <h4><fa-icon style="color: #03c1ad;" [icon]="faFlag"></fa-icon>&nbsp; &nbsp;{{ user.paye }}</h4>
+            <hr />
+          </li>
+          <li class="user-item">
+            <h4><fa-icon style="color: #03c1ad;" [icon]="faMapMarker"></fa-icon>&nbsp; &nbsp;{{ user.ville }},{{user.rue}} : {{ user.codePostal }}</h4>
+            <hr />
+          </li>
+          <li class="user-item">
+            <h4><fa-icon style="color: #03c1ad;" [icon]="faUniversity"></fa-icon>&nbsp; &nbsp;{{ nomInstitut }} </h4>
+            <hr />
+          </li>
+          <li class="user-item">
+            <h4></h4>
+          </li>
+          <li class="user-item">
+            <h4><fa-icon style="color: #03c1ad;" [icon]="faCalendar"></fa-icon>&nbsp; &nbsp;{{ user.dateNaissance }}</h4>
+            <hr />
+          </li>
+          <li class="user-item">
+            <h4><fa-icon style="color: #03c1ad;" [icon]="faEnvelope"></fa-icon>&nbsp; &nbsp;{{ user.email }}</h4>
+            <hr />
+          </li>
+          <li class="user-item">
+            <h4><fa-icon style="color: #03c1ad;" [icon]="faObjectGroup"></fa-icon>&nbsp; &nbsp;{{ user.softSkills }}</h4>
+            <hr />
+          </li>
+          <li class="user-item">
+            <h4><fa-icon style="color: #03c1ad;" [icon]="faInfoCircle"></fa-icon>&nbsp; &nbsp;About</h4>
+            <textarea style="height: 132px !important; width: 97% ; font-size: medium" value="{{ user.bio }}"></textarea>
+            <br />
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div  style="height: 100%;" class="col-md-5" >
+      <div class="user-information">
+        <ul class="user-info">
+          <li class="user-item">
+            <h4><fa-icon style="color: #03c1ad;" [icon]="faBrain"></fa-icon>&nbsp; &nbsp;Skills</h4>
+            <div class="skills" >
+              <h6>{{ user.skills[0] }}</h6>
+              <h6>{{ user.skills[1] }}</h6>
+              <h6>{{ user.skills[2] }}</h6>
+              <h6>{{ user.skills[3] }}</h6>
+              <h6>{{ user.skills[4] }}</h6>
+            </div>
+            <hr />
+          </li>
+            <small>UY : {{ date }} - {{ nextYears }}</small>
+        </ul>
+      </div>
+      <img src="../../assets/images/profile-icon.png" alt="" />
+    </div>
+  </div>
+</div>

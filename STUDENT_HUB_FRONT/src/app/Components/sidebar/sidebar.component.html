@@ -1,0 +1,124 @@
+<input type="checkbox" id="active1">
+<label for="active1" class="menu-btn"><span></span></label>
+<label for="active1" class="close"></label>
+<div *ngIf="user" class="dashboard">
+  <h3 style="display: block;">Hi, {{ user.nom }}</h3><br>
+  <p style="display: block !important;">{{ user.titre }}</p><br>
+  <ul class="nav">
+    <li class="nav-item" routerLink="/home/profile" routerLinkActive="active">
+      <i class="fa-solid fa-user-group" style="color: #03c1ad;vertical-align: -50%;margin-right: 15px;font-size: 25px;"></i>
+      <a href="/home/profile">Profile</a>
+    </li>
+    <li class="nav-item" routerLinkActive="active" routerLink="/home/calendar">
+      <i class="fa-regular fa-calendar" style="color: #03c1ad;vertical-align: -50%;margin-right: 15px;font-size: 25px;"></i>
+      <a href="/home/calendar">Calendar</a>
+    </li>
+    <li class="nav-item" routerLinkActive="active" routerLink="#">
+      <i class="fa-regular fa-file" style="color: #03c1ad;vertical-align: -50%;margin-right: 15px;font-size: 25px;"></i> <a>Documents</a>
+    </li>
+    <li class="nav-item" routerLinkActive="active" routerLink="/home/gestion-blog">
+      <i class="fa-solid fa-file-pen" style="color: #03c1ad;  vertical-align: -50%;
+      margin-right: 15px;
+      font-size: 25px;"></i><a href="/home/gestion-blog">Blog</a>
+    </li>
+    <li class="nav-item" routerLinkActive="active" routerLink="#">
+      <i class="fa-regular fa-flag" style="color: #03c1ad;vertical-align: -50%;margin-right: 15px;font-size: 25px;"></i><a>Events</a>
+    </li>
+    <li [hidden]="hideuniversities" class="nav-item" routerLink="home/universities" routerLinkActive="active">
+      <i class="fa-solid fa-building-columns" style="color: #03c1ad;vertical-align: -50%;margin-right: 15px;font-size: 25px;"></i>
+      <a href="home/universities">Universities</a>
+    </li>
+    <li [hidden]="hidefiliere" class="nav-item" routerLink="home/university" routerLinkActive="active">
+      <i class="fa-solid fa-building-columns" style="color: #03c1ad;vertical-align: -50%;margin-right: 15px;font-size: 25px;"></i>
+      <a href="home/university">My {{ user.nom }}</a>
+    </li>
+    <li class="nav-item" routerLink="home/profile/settings" routerLinkActive="active">
+      <i class="fa-solid fa-gear" style="color: #03c1ad;vertical-align: -50%;margin-right: 15px;font-size: 25px;"></i>
+      <a href="home/profile/settings">Settings</a>
+    </li>
+  </ul>
+  <hr />
+  <br />
+  <img src="http://localhost:9091/User/{{ user.institutImage }}" style="width: 300px; height: 200px; margin-left: -50px; border: 2px solid #03c1ad; display: block;" alt="Institut picture"/>
+</div>
+
+
+<nav class="wrapper">
+  <h3>Hi,</h3>
+  <ul>
+      <li routerLink="/home/profile" routerLinkActive="active">
+          <a href="/home/profile">
+            <i class="fa fa-2x"><fa-icon style="margin-left: 10px;color: #03c1ad;" [icon]="faUser"></fa-icon></i>
+            <span class="nav-text">
+                 <a href="#"> Profile</a>
+              </span>
+          </a>
+
+      </li>
+      <li class="has-subnav" routerLinkActive="active" routerLink="#">
+          <a href="#">
+            <i class="fa fa-2x"><fa-icon style="color: #03c1ad;" [icon]="faCalendar"></fa-icon></i>
+              <span class="nav-text">
+                 <a href="#"> Calendar</a>
+              </span>
+          </a>
+
+      </li>
+      <li class="has-subnav">
+          <a href="#">
+             <i class="fa fa-2x"><fa-icon style="color: #03c1ad;" [icon]="faDoc"></fa-icon>
+             </i>
+              <span class="nav-text">
+                <a>Documents</a>
+              </span>
+          </a>
+
+      </li>
+      <li class="has-subnav" routerLinkActive="active" routerLink="/home/gestion-blog">
+          <a href="#">
+             <i class="fa fa-2x"><fa-icon style="color: #03c1ad;" [icon]="faBlog"></fa-icon>
+             </i>
+              <span class="nav-text">
+                <a href="/home/gestion-blog">Blog</a>
+              </span>
+          </a>
+
+      </li>
+      <li routerLinkActive="active" routerLink="#">
+          <a href="#">
+              <i class="fa fa-2x"><fa-icon style="color: #03c1ad;" [icon]="faInterested"></fa-icon>
+              </i>
+              <span class="nav-text">
+                <a>Interested Events</a>
+              </span>
+          </a>
+      </li>
+      <li  [hidden]="hideuniversities" routerLink="home/universities" routerLinkActive="active">
+          <a href="#">
+              <i class="fa fa-2x"><fa-icon style="color: #03c1ad;" [icon]="faUniversity"></fa-icon>
+                </i>
+              <span class="nav-text">
+                <a href="home/universities">Universities</a>              </span>
+          </a>
+      </li>
+      <li [hidden]="hidefiliere"  routerLink="home/university" routerLinkActive="active">
+         <a href="#">
+             <i class="fa fa-2x"><fa-icon style="color: #03c1ad;" [icon]="faUniversity"></fa-icon></i>
+              <span class="nav-text">
+                <a href="home/university">My</a>
+
+              </span>
+          </a>
+      </li>
+      <li routerLink="home/profile/settings" routerLinkActive="active">
+         <a href="#">
+              <i class="fa fa-2x"><fa-icon style="color: #03c1ad;" [icon]="faCog"></fa-icon>
+              </i>
+              <span class="nav-text">
+                <a href="home/profile/settings">Settings</a>
+              </span>
+          </a>
+      </li>
+      <hr />
+  </ul>
+</nav>

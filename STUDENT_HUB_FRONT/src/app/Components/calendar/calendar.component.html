@@ -1,0 +1,47 @@
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Primary color</th>
+        <th>Secondary color</th>
+        <th>Starts at</th>
+        <th>Ends at</th>
+        <th>Matter</th>
+        <th>Teacher</th>
+        <th>Schoolroom</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <td><input type="text"></td>
+      <td><input type="color"></td>
+      <td><input type="color"></td>
+      <td><input type="datetime-local"></td>
+      <td><input type="datetime-local"></td>
+      <td><input type="text"></td>
+      <td><input type="text"></td>
+      <td><input type="text"></td>
+      <td>
+        <button class="btn btn-success"> Add </button>
+      </td>
+
+      <tr *ngFor="let e of events">
+        <td>{{e.type}}</td>
+        <td><input type="color"/></td>
+        <td><input type="color"/></td>
+        <td>{{e.startAt}}</td>
+        <td>{{e.endAt}}</td>
+        <td>{{e.matiere.nom}}</td>
+        <td>{{e.enseignant.nom}} {{e.enseignant.prenom}}</td>
+        <td>{{e.salle.bloc}}{{e.salle.etage}}{{e.salle.numero}}
+        </td>
+        <td>
+          <button class="btn btn-danger"> Delete </button>
+          <button class="btn btn-primary"> Edit </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

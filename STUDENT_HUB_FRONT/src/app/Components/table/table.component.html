@@ -1,0 +1,165 @@
+<div class="container">
+  <div class="d-flex bd-highlight mb-3">
+    <div class="me-auto p-2 bd-highlight"><h2>Universities</h2></div>
+    <div class="search-wrapper">
+      <input type="text" #myInput [(ngModel)]="nom" (input)="SearchUniversity()" class="search-input" placeholder="Search …">
+      <svg
+        width="20"
+        height="20"
+        fill="none"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        class="feather feather-search"
+        viewBox="0 0 24 24"
+      >
+        <defs></defs>
+        <circle cx="11" cy="11" r="8"></circle>
+        <path d="M21 21l-4.35-4.35"></path>
+      </svg>
+    </div>
+    <div class="p-2 bd-highlight">
+      <button type="button" class="btn btn-secondary" (click)="open(content)">
+        Add
+      </button>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Avatar</th>
+          <th scope="col">First</th>
+          <th scope="col">Last</th>
+          <th scope="col">Email</th>
+          <th scope="col">Role</th>
+        </tr>
+      </thead>
+      <tbody id="mytable">
+        <tr *ngFor="let u of ListUniversite; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>
+            <img
+              width="50px"
+              style="border-radius: 50%"
+              src="http://localhost:9091/User/{{ u.profileImage }}"
+              class="avatar"
+            />
+          </td>
+          <td>{{ u.nom }}</td>
+          <td>{{ u.prenom }}</td>
+          <td>{{ u.email }}</td>
+          <td>{{ u.titre }}</td>
+          <td>
+            <button
+              type="button"
+              class="btn btn-outline-secondary"
+              (click)="open(content)"
+            >
+              Edit
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-danger"
+              (click)="deleteUser(u._id)"
+            >
+              Del
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add Universitie</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input
+          type="text"
+          formControlName="prenom"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.prenom.errors }"
+        />
+        <div *ngIf="submitted && f.prenom.errors" class="invalid-feedback">
+          <div *ngIf="f.prenom.errors.required">First Name is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input
+          type="text"
+          formControlName="nom"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.nom.errors }"
+        />
+        <div *ngIf="submitted && f.nom.errors" class="invalid-feedback">
+          <div *ngIf="f.nom.errors.required">Last Name is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="cin">Cin</label>
+        <input
+          type="text"
+          formControlName="cin"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.cin.errors }"
+        />
+        <div *ngIf="submitted && f.cin.errors" class="invalid-feedback">
+          <div *ngIf="f.cin.errors.required">cin is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="mdp">Password</label>
+        <input
+          type="text"
+          formControlName="mdp"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.mdp.errors }"
+        />
+        <div *ngIf="submitted && f.mdp.errors" class="invalid-feedback">
+          <div *ngIf="f.mdp.errors.required">mdp is required</div>
+          <div *ngIf="f.mdp.errors.minlength">
+            mdp must be at least 6 characters
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="ConfirmMdp">ConfirmMdp</label>
+        <input
+          type="text"
+          formControlName="confirmMDP"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.confirmMDP.errors }"
+        />
+        <div *ngIf="submitted && f.confirmMDP.errors" class="invalid-feedback">
+          <div *ngIf="f.confirmMDP.errors.required">confirmMDP is required</div>
+          <div *ngIf="f.confirmMDP.errors.minlength">
+            confirmMDP must be at least 6 characters
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-outline-dark">
+          <!-- <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span> -->
+          Add
+        </button>
+        <a class="btn btn-link" type="reset">Cancel</a>
+      </div>
+    </form>
+  </div>
+</ng-template>
+<hr />

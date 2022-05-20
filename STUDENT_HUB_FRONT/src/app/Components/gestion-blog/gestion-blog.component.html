@@ -1,0 +1,140 @@
+<!-- Page wrapper/Container Section -->
+<div class="container">
+  <h3 style="text-align: center;">Your {{nBlog}} Blogs</h3>
+  <div class="search-wrapper">
+    <input type="text" #myInput [(ngModel)]="titre" (input)="SearchBlogByTitre()" class="search-input" placeholder="Search …" />
+    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="feather feather-search" viewBox="0 0 24 24">
+      <defs></defs>
+      <circle cx="11" cy="11" r="8"></circle>
+      <path d="M21 21l-4.35-4.35"></path>
+    </svg>
+  </div>
+  <div class="p-2 bd-highlight">
+    <button type="button" class="btn btn-secondary" (click)="open(content)">Add Blog</button>
+  </div>
+  <small><b>NB:</b> if you want to hide a blog make hidden to true</small>
+
+	<!-- Responsive Table Section -->
+	<table class="responsive-table">
+		<!-- Responsive Table Header Section -->
+		<thead class="responsive-table__head">
+			<tr class="responsive-table__row">
+				<th class="responsive-table__head__title responsive-table__head__title--name">Title
+					<svg version="1.1" class="up-arrow" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+						<path d="M374.176,110.386l-104-104.504c-0.006-0.006-0.013-0.011-0.019-0.018c-7.818-7.832-20.522-7.807-28.314,0.002c-0.006,0.006-0.013,0.011-0.019,0.018l-104,104.504c-7.791,7.829-7.762,20.493,0.068,28.285    c7.829,7.792,20.492,7.762,28.284-0.067L236,68.442V492c0,11.046,8.954,20,20,20c11.046,0,20-8.954,20-20V68.442l69.824,70.162c7.792,7.829,20.455,7.859,28.284,0.067C381.939,130.878,381.966,118.214,374.176,110.386z" />
+					</svg>
+				</th>
+				<th class="responsive-table__head__title responsive-table__head__title--status">Status</th>
+				<th class="responsive-table__head__title responsive-table__head__title--types">Description</th>
+				<th class="responsive-table__head__title responsive-table__head__title--update">Posted at</th>
+				<th class="responsive-table__head__title responsive-table__head__title--country">likes</th>
+			</tr>
+		</thead>
+		<!-- Responsive Table Body Section -->
+		<tbody class="responsive-table__body">
+			<tr class="responsive-table__row" *ngFor="let b of ListBlog; let i = index">
+				<td class="responsive-table__body__text responsive-table__body__text--name">
+          <img   style="border-radius: 50%;max-width:50px ;max-height:50px" src="http://localhost:9091/blog/{{ b.image }}" class="user-icon" />
+					{{ b.titre }}
+				</td>
+        <a *ngIf="b.masquer"  href="/home/gestion-blog" (click)="masquerBlog(b._id)" >
+				<td class="responsive-table__body__text responsive-table__body__text--status"><span class="status-indicator status-indicator--active"></span>{{ b.masquer }}</td></a>
+        <a *ngIf="!b.masquer" href="/home/gestion-blog" (click)="masquerBlog(b._id)" >
+          <td  class="responsive-table__body__text responsive-table__body__text--status"><span class="status-indicator status-indicator--inactive"></span>{{b.masquer}}</td></a>
+				<td class="responsive-table__body__text responsive-table__body__text--types">{{ b.description }}</td>
+				<td class="responsive-table__body__text responsive-table__body__text--update">{{ b.date }}</td>
+				<td class="responsive-table__body__text responsive-table__body__text--country">{{ b.like }}</td>
+        <td class="responsive-table__body__text responsive-table__body__text--actions">
+          <a >
+            <fa-icon [icon]="faDel"  class="material-icons" style="color: red;" (click)="openalert(contentalert); setIdThisBlog(b._id)"></fa-icon>
+          </a>
+          <fa-icon [icon]="faEdit"  class="material-icons" style="color: #03C1AD;margin-left: 40px;" (click)="opene(contente); setIdThisBlog(b._id)"></fa-icon>
+        </td>
+
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<!--Add-->
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add Blog</h4>
+    <a href="/home/gestion-blog">
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </a>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="titre">Titre</label>
+        <input type="text" formControlName="titre" class="form-control" [ngClass]="{ 'is-invalid': submitted && b.titre.errors }" />
+        <div *ngIf="submitted && b.titre.errors" class="invalid-feedback">
+          <div *ngIf="b.titre.errors.required">Titre is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <input type="text" formControlName="description" class="form-control" [ngClass]="{ 'is-invalid': submitted && b.description.errors }" />
+        <div *ngIf="submitted && b.description.errors" class="invalid-feedback">
+          <div *ngIf="b.description.errors.required">Description is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-outline-dark">Add</button>
+        <a class="btn btn-link" type="reset" href="/home/gestion-blog" (click)="modal.dismiss('Cross click')">Cancel</a>
+      </div>
+      <div [hidden]="hidemsg" class="alert alert-success"><p>{{msg}}</p></div>
+    </form>
+  </div>
+</ng-template>
+<hr>
+<!--Edit-->
+<ng-template #contente let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Edit Blog</h4>
+    <a href="/home/gestion-blog">
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </a>
+  </div>
+  <div class="modal-body" >
+    <form [formGroup]="form" (ngSubmit)="onEdit()">
+      <div class="form-group">
+        <label for="titre">Titre</label>
+        <input type="text" formControlName="titre" class="form-control" [ngClass]="{ 'is-invalid': submitted && b.titre.errors }"/>
+        <div *ngIf="submitted && b.titre.errors" class="invalid-feedback">
+          <div *ngIf="b.titre.errors.required">Titre is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <input type="text" formControlName="description" class="form-control" [ngClass]="{ 'is-invalid': submitted && b.description.errors }" />
+        <div *ngIf="submitted && b.description.errors" class="invalid-feedback">
+          <div *ngIf="b.description.errors.required">Description is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-outline-dark">Update</button>
+        <a class="btn btn-link" type="reset" href="/home/gestion-blog" (click)="modal.dismiss('Cross click')">Cancel</a>
+      </div>
+      <div [hidden]="hidemsg" class="alert alert-success"><p>{{msg}}</p></div>
+    </form>
+  </div>
+</ng-template>
+<!--Delete-->
+<ng-template #contentalert let-modal>
+  <div class="modal-header">
+    <h5 style="color: black; text-align: center;" class="modal-title" id="modal-basic-title">Are You Sur to delete this Blog ?</h5>
+    <a href="/home/gestion-blog">
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </a>
+  </div>
+  <div class="modal-body" >
+    <form [formGroup]="form">
+      <div class="form-group" style="align-items: center;">
+        <a style="color: red;" href="/home/gestion-blog" class="btn btn-default" (click)="deleteBlog(); modal.dismiss('Cross click')">Confirm</a>
+        <a style="color: green;" class="btn btn-link" class="btn btn-default" href="/home/gestion-blog" (click)="modal.dismiss('Cross click')">Cancel</a>
+      </div>
+    </form>
+  </div>
+</ng-template>

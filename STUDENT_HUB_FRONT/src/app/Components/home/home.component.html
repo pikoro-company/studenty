@@ -1,0 +1,207 @@
+<!-- Digitlize your Academic career -->
+
+
+<div class="container1" data-aos="fade-down">
+  <div class="row">
+      <div class="col-7"  data-aos="fade-right"
+      data-aos-offset="300"
+      data-aos-easing="ease-in-sine">
+        <h1> <b>Digitlize</b>  your Academic career</h1>
+        <p>Everything that you need as a student in a one<br>
+          place, accessible anywhere and everytime.<br>
+          Your digital academic portfolio is here ! </p>
+       <a href="/home/contact"><button type="button" class="btn btn-light">Join US !</button></a>
+       <a href="/home/howitworks"><button type="button" class="btn btn-dark">How it works ?</button></a>
+      </div>
+      <div class="col-5"  data-aos="fade-left"
+      data-aos-offset="300"
+      data-aos-easing="ease-in-sine">
+        <div class="astro">
+          <img src="../../../../assets/images/astro.png">
+        </div>
+      </div>
+  </div>
+</div>
+
+
+
+<!-- Who we are !!!!!!!!!!!! -->
+
+
+<div class="container2" data-aos="fade-down" data-aos-duration="600" data-aos-easing="ease-in-sine">
+  <div class="row">
+      <div class="col-7">
+        <h1>Who are we ?</h1>
+        <p>Amet minim mollit non deserunt ullamco
+          est sit aliqua dolor do amet sint.
+         Velit officia consequat duis enim velit mollit.
+          Exercitation veniam consequat sunt nostrud amet.
+         Velit officia consequat duis enim velit mollit.
+          Exercitation veniam consequat sunt nostrud amet. </p>
+        <a href="/home/contact"><button type="button" class="btn btn-dark">Join Us !</button></a>
+      </div>
+      <div class="col-5">
+        <div class="video-card">
+          <img src="../../../../assets/images/video-man.png" >
+      </div>
+  </div>
+</div>
+</div>
+
+
+<!-- How it works!!!!! -->
+
+
+<div class="mini-title" data-aos="fade-down" data-aos-duration="600" data-aos-easing="ease-in-sine">
+  <h1>How it works ?</h1>
+  <p>Learn more about NatHub</p>
+</div>
+<div class="container3" data-aos="fade-down">
+  <div class="row">
+      <div class="col-7">
+        <h1>Step 1</h1>
+        <p> Amet minim mollit non deserunt ullamco<br>
+          est sit aliqua dolor do amet sint.<br>
+         Velit officia consequat duis enim velit mollit.<br>
+          Exercitation veniam consequat sunt nostrud amet.<br>
+         Velit officia consequat duis enim velit mollit.<br>
+          Exercitation veniam consequat sunt nostrud amet.
+        </p>
+      </div>
+      <div class="col-5">
+        <div class="screen-card">
+          <img src="../../assets/images/screen1.png" >
+        </div>
+</div>
+
+
+<!-- Evenets !!!!!!! -->
+
+<div class="blog-slider5" data-aos="fade-down" data-aos-duration="600" data-aos-easing="ease-in-sine">
+  <div class="container">
+    <h3>Recent Events</h3>
+    <input type="radio" name="dot" id="one">
+    <input type="radio" name="dot" id="two">
+    <div class="main-card">
+      <div class="cards">
+        <div class="card">
+          <div class="content">
+            <li style="list-style-type: none; float: left">
+              <img src="../../../../assets/images/me.jpg" style="max-width: 50px; border-radius: 50%; border: 2px solid #03c1ad; display: inline;" alt="" />
+              <a class="nav-link" style=" font-weight: bold; display: inline; color: black; margin-left: 0px; margin-bottom: 10px;">
+                <i class="ion-md-power"></i> Tbini Azer
+              </a>
+              <small>2021-2022</small>
+            </li>
+            <div class="img">
+              <img src="../../assets/images/event.png" alt="">
+            </div>
+            <div class="details">
+              <div class="name">Event1</div>
+              <div class="job">Esen Android Club</div>
+            </div>
+            <p>Amet minim mollit non deserunt ullamco<br> est sit aliqua dolor do amet sint.<br>Amet minim mollit non deserunt ullamco<br> est sit aliqua dolor do amet sint. </p>
+          </div>
+        </div>
+      </div>
+      <div class="button">
+        <label for="one" class=" active one"></label>
+        <label for="two" class="two"></label>
+      </div>
+      <a href="/home/contact"><button style="align-items: center;" type="button" class="btn btn-dark">Join Us !</button></a>
+    </div>
+  </div>
+</div>
+
+<!-- Blog!!!!!!!!!!!! -->
+<div class="blog-slider5">
+  <h3>Here Is {{nBlogs}} Blogs</h3>
+  <br>
+  <br>
+  <div class="container" >
+    <div class="row">
+      <div class="col-sm" *ngFor="let blogs of ListBlog; let i of index" >
+        <div class="main-card" >
+          <div class="cards" style="margin-left: 8%;" >
+            <div class="card" style="width: 300px; height: 600px;" >
+              <div class="content" style="height: 100%;">
+                <li style="list-style-type: none; height: 20%;">
+                  <img src="http://localhost:9091/User/{{ blogs.user.profileImage }}" style="width: 45px; height: 45px; border-radius: 50%; border: 2px solid #03c1ad; display: inline;" alt=""/>
+                  <a class="nav-link" style="font-weight: bold; display: inline; color: black; ">
+                    <i class="ion-md-power"></i> {{blogs.user.nom}} {{blogs.user.prenom}}
+                  </a>
+                  <br>
+                  <br>
+                  <small>Published on : {{blogs.date}}</small>
+                </li>
+
+                <div class="img">
+                  <img style="width: 250px; height: 200px;" src="http://localhost:9091/Blog/{{ blogs.image }}" alt="Blog Picture" (click)="setBlogId(blogs._id)" routerLink="/home/blogs/blog" />
+                </div>
+                <div class="details">
+                  <div class="name">{{blogs.titre}}</div>
+                </div>
+                <br>
+                <p style="width: 80%; height: 40px;">{{blogs.description}}</p>
+                <br>
+                <a  style="color: #03C1AD; width: 100px; margin-left: 65%; margin-bottom: -180px; margin-top: 10px;">
+                  <fa-icon [icon]="faComment"  class="material-icons"></fa-icon>
+                  <p style="color: #03c1ad;"> {{blogs.nombreCommentaire}} Comments </p>
+                </a>
+                <a style=" font-size: large; margin-left: -85%; margin-bottom: -40%;margin-top: 0%;" (click)="likeBlog(blogs._id)"  href="/home/blogs">
+                  <fa-icon style="color: #03C1AD;" [icon]="faThumbsUp"  class="material-icons"></fa-icon>
+                </a>
+                <a style=" font-size: large; margin-left: -70%; margin-top: 32%; " (click)="dislikeBlog(blogs._id)"  href="/home/blogs">
+                  <fa-icon style="color: #03C1AD;" [icon]="faThumbsDown"  class="material-icons"></fa-icon>
+                </a>
+                  <p style="color: #03C1AD; margin-left: -72%;">{{blogs.like}} Like</p>
+                <br>
+                <br>
+              </div>
+
+              <br>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- What they say about us -->
+
+
+
+
+<div class="blog-slider6" data-aos="fade-down" data-aos-duration="600" data-aos-easing="ease-in-sine">
+  <div class="first" data-aos="fade-down" data-aos-duration="600" data-aos-easing="ease-in-sine">
+    <div class="row">
+      <div class="col-sm-7" >
+        <div class="screen-card">
+          <img src="../../assets/images/steps.png" >
+        </div>
+      </div>
+      <div class="col-sm-5"  >
+        <h1>What they say about us</h1>
+        <p> Amet minim mollit non deserunt ullamco<br>
+          est sit aliqua dolor do amet sint.<br>
+         Velit officia consequat duis enim velit mollit.<br>
+          Exercitation veniam consequat sunt nostrud amet.<br>
+         Velit officia consequat duis enim velit mollit.<br>
+          Exercitation veniam consequat sunt nostrud amet.
+        </p>
+        <a href="/home/contact"><button  type="button" class="btn btn-dark" data-aos="fade-right" >Join Us !</button></a>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+

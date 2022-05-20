@@ -1,0 +1,7 @@
+export enum Role{
+  ADMINISTRATEUR,
+  UNIVERSITE,
+  ENSEIGNANT,
+  ETUDIANT,
+  CLUB,
+}

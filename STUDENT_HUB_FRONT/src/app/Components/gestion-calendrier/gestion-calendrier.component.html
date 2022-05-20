@@ -1,0 +1,334 @@
+<div class="container">
+  <div class="wrapper">
+    <div class="d-flex bd-highlight mb-3">
+      <div class="search-wrapper">
+        <input class="search-input" type="text" placeholder="Search" />
+        <svg
+          width="20"
+          height="20"
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          class="feather feather-search"
+          viewBox="0 0 24 24"
+        >
+          <defs></defs>
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="M21 21l-4.35-4.35"></path>
+        </svg>
+      </div>
+      <div class="p-2 bd-highlight">
+        <button type="button" class="btn btn-secondary" (click)="showPopUp()">
+          Add calendrier
+        </button>
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th><input type="checkbox" name="blog" id="blog" /></th>
+
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Date</th>
+            <th scope="col">
+              <input type="button" class="btn btn-danger" value="Delete All" />
+            </th>
+          </tr>
+        </thead>
+        <tbody id="mytable">
+          <tr *ngFor="let u of ListClub; let i = index">
+            <td>
+              <input type="checkbox" class="check" name="blog" id="blog" />
+            </td>
+            <td>
+              <img
+                width="50px"
+                style="border-radius: 50%"
+                src="http://localhost:9091/User/{{ u.profileImage }}"
+                class="avatar"
+              />
+            </td>
+            <td>{{ u.nom }}</td>
+            <td>{{ u.prenom }}</td>
+
+
+            <td>
+              <button
+                type="button"
+                class="btn btn-outline-secondary"
+                (click)="open(content)"
+              >
+                Edit
+              </button>
+              <button
+                type="button"
+                class="btn btn-outline-danger"
+                (click)="deleteUser(u._id)"
+              >
+                Del
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add Club</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="firstName">Name</label>
+        <input
+          type="text"
+          formControlName="prenom"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.prenom.errors }"
+        />
+        <div *ngIf="submitted && f.prenom.errors" class="invalid-feedback">
+          <div *ngIf="f.prenom.errors.required">Name is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="lastName">Description</label>
+        <input
+          type="text"
+          formControlName="nom"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.nom.errors }"
+        />
+        <div *ngIf="submitted && f.nom.errors" class="invalid-feedback">
+          <div *ngIf="f.nom.errors.required">Description is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="cin">Date</label>
+        <input
+          type="text"
+          formControlName="cin"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.cin.errors }"
+        />
+        <div *ngIf="submitted && f.cin.errors" class="invalid-feedback">
+          <div *ngIf="f.cin.errors.required">Date is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="mdp">Password</label>
+        <input
+          type="text"
+          formControlName="mdp"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.mdp.errors }"
+        />
+        <div *ngIf="submitted && f.mdp.errors" class="invalid-feedback">
+          <div *ngIf="f.mdp.errors.required">mdp is required</div>
+          <div *ngIf="f.mdp.errors.minlength">
+            mdp must be at least 6 characters
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="ConfirmMdp">ConfirmMdp</label>
+        <input
+          type="text"
+          formControlName="confirmMDP"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.confirmMDP.errors }"
+        />
+        <div *ngIf="submitted && f.confirmMDP.errors" class="invalid-feedback">
+          <div *ngIf="f.confirmMDP.errors.required">confirmMDP is required</div>
+          <div *ngIf="f.confirmMDP.errors.minlength">
+            confirmMDP must be at least 6 characters
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-outline-dark">
+          <!-- <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span> -->
+          Add
+        </button>
+        <a class="btn btn-link" type="reset">Cancel</a>
+      </div>
+    </form>
+  </div>
+</ng-template>
+<hr />
+
+
+<!-- addSubject -->
+<div  [style.display]="style" class="bg-modal">
+  <!-- <div [hidden]="!showed" [style.display]="addNoteStyle"  class="modal-contents"> -->
+    <div  class="modal-contents">
+
+    <div class="close" (click)="closeAddnote()">+</div>
+    <h2>Groupe</h2>
+
+    <form action="">
+
+
+<label for="level" style="margin-top: 30px;">Level</label>
+<div class="dropdown">
+
+  <button style="width: 95%;" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Level
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="#">1ere Licence</a>
+    <a class="dropdown-item" href="#">2eme Licence</a>
+    <a class="dropdown-item" href="#">3eme Licence</a>
+  </div>
+</div>
+
+<label for="specialite" style="margin-top: 30px;">Specialité</label>
+<div class="dropdown">
+
+  <button style="width: 95%;" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Specialité
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="#">TI</a>
+    <a class="dropdown-item" href="#">AF</a>
+    <a class="dropdown-item" href="#">CF</a>
+  </div>
+</div>
+<div class="form-check form-check-inline" style="margin-top: 25px;">
+  <input class="form-check-input" type="checkbox" id="exams" value="option1" disabled>
+  <label class="form-check-label" for="exams">Exams calendar</label>
+</div>
+
+
+      <div href="#" class="button" style="text-align: center !important;align-items: center !important;margin-top: 70px;">
+        <p style="text-align: center !important;align-items: center !important;cursor: pointer;" (click)="showAddSubject2()">Add subject</p></div>
+    </form>
+  </div>
+<!-- addSubject2 -->
+<div  [style.display]="style2" class="bg-modal2">
+  <!-- <div [hidden]="!showed" [style.display]="addNoteStyle"  class="modal-contents"> -->
+    <div  class="modal-contents2">
+
+    <div class="close" (click)="closeAddnote()">+</div>
+    <h2>Monday<small> 25 Nov 2021</small></h2>
+    <div [hidden]="!isEmpty" class="note">
+      <div class="note-description">
+        <h3>
+          Math
+          <small>12:15h-15:30h</small>
+          <div class="toggle"   [hidden]="isOpened" (click)="toggle()"><</div>
+          <div class="toggle"  [hidden]="!isOpened" style="transform: rotate(90deg);" (click)="closeNote()"><</div>
+
+        </h3>
+        <h5>Foulen Ben foulen <span style="color: darkgrey;">Salle C1</span></h5>
+        <div class="note-info" [style.display]="style1">
+          <span>Algo project DDL : 22/10/2021 Char is used for a caracter. Integer is used for numbers.</span>
+        </div>
+      </div>
+    </div>
+    <form action="">
+      <div class="container1">
+        <div class="row">
+          <div class="col">
+            <td><label for="StartTime">Start Time</label>
+            <input type="time" id="appt" name="appt"
+                    min="08:00" max="18:00" required class="time">
+            </td>
+            <td><label for="EndTime">End Time</label>
+            <input type="time" id="appt" name="appt"
+                    min="08:00" max="18:00" required class="time">
+          </td>
+        </div>
+          <div class="col">
+            <div class="form-check form-check-inline" style="margin-top: 25px;">
+              <input class="form-check-input" type="radio" id="subjectType" name="1" value="option1" >
+              <label class="form-check-label" for="cours">Cours</label>
+            </div>
+            <div class="form-check form-check-inline" style="margin-top: 25px;">
+              <input class="form-check-input" type="radio" id="subjectType" name="1" value="option2" >
+              <label class="form-check-label" for="TD">TD</label>
+            </div>
+            <div class="form-check form-check-inline" style="margin-top: 25px;">
+              <input class="form-check-input" type="radio" id="subjectType" name="1" value="option3" >
+              <label class="form-check-label" for="TP">TP</label>
+            </div>
+          </div>
+          <h5>Subject name</h5>
+          <input type="text" placeholder="Note..."  class="title"/>
+          <h5>Prof name</h5>
+          <input type="text" placeholder="Note..."  class="title"/>
+          <h5>Salle</h5>
+          <input type="text" placeholder="Note..."  class="title"/>
+          <div href="#" class="button" >
+            <p style="text-align: center !important;">Done</p></div>
+        </div>
+
+      </div>
+      <div [hidden]="!isEmpty" class="note">
+        <div class="note-description">
+          <h3>
+            New Subject
+            <div class="toggle"   [hidden]="isOpened" (click)="toggle()">+</div>
+            <div class="toggle"  [hidden]="!isOpened" style="transform: rotate(45deg);color: gray;border: 1px;border-radius: 50%;" (click)="closeNote()">+</div>
+
+          </h3>
+
+          <div class="note-info" [style.display]="style1">
+            <div class="container1">
+              <div class="row">
+                <div class="col">
+                  <td><label for="StartTime">Start Time</label>
+                  <input type="time" id="appt" name="appt"
+                          min="08:00" max="18:00" required class="time">
+                  </td>
+                  <td><label for="EndTime">End Time</label>
+                  <input type="time" id="appt" name="appt"
+                          min="08:00" max="18:00" required class="time">
+                </td>
+              </div>
+                <div class="col">
+                  <div class="form-check form-check-inline" style="margin-top: 25px;">
+                    <input class="form-check-input" type="radio" id="subjectType" name="1" value="option1" >
+                    <label class="form-check-label" for="cours">Cours</label>
+                  </div>
+                  <div class="form-check form-check-inline" style="margin-top: 25px;">
+                    <input class="form-check-input" type="radio" id="subjectType" name="1" value="option2" >
+                    <label class="form-check-label" for="TD">TD</label>
+                  </div>
+                  <div class="form-check form-check-inline" style="margin-top: 25px;">
+                    <input class="form-check-input" type="radio" id="subjectType" name="1" value="option3" >
+                    <label class="form-check-label" for="TP">TP</label>
+                  </div>
+                </div>
+                <h5>Subject name</h5>
+                <input type="text" placeholder="Note..."  class="title"/>
+                <h5>Prof name</h5>
+                <input type="text" placeholder="Note..."  class="title"/>
+                <h5>Salle</h5>
+                <input type="text" placeholder="Note..."  class="title"/>
+                <div href="#" class="button" >
+                  <p style="text-align: center !important;">Done</p></div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div href="#" class="button" style="text-align: center !important;align-items: center !important;margin-top: 70px;">
+        <p style="text-align: center !important;align-items: center !important;">Add subject</p></div>
+    </form>
+  </div>

@@ -1,0 +1,261 @@
+<div class="profile" >
+  <div class="container1">
+    <div class="row">
+      <div class="leftbox">
+        <ul class="nav">
+          <li class="nav-item">
+            <a (click)="showUpdateProfile()">
+              <fa-icon style="color: #03c1ad;" [icon]="faEdit"></fa-icon>&nbsp; &nbsp;Update Profile
+            </a>
+          </li>
+        </ul>
+        <ul class="nav">
+          <li class="nav-item">
+            <a (click)="showChangePwd()">
+              <fa-icon style="color: #03c1ad;" [icon]="faKey"></fa-icon>Change Pwd
+            </a>
+          </li>
+        </ul>
+        <ul class="nav">
+          <li class="nav-item">
+            <a (click)="showProfileImage()">
+              <fa-icon style="color: #03c1ad;" [icon]="faImage"></fa-icon>&nbsp; &nbsp;Profile Image
+            </a>
+          </li>
+        </ul>
+        <ul class="nav">
+          <li class="nav-item">
+            <a (click)="showCoverImage()">
+              <fa-icon style="color: #03c1ad;" [icon]="faImages"></fa-icon>&nbsp; &nbsp;Cover Image
+            </a>
+          </li>
+        </ul>
+        <ul class="nav" [hidden]="hideinstitutimage">
+          <li class="nav-item">
+            <a (click)="showInstitutImage()">
+              <fa-icon style="color: #03c1ad;" [icon]="faImage"></fa-icon>&nbsp; &nbsp;Institut Image
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Update Profile-->
+      <div *ngIf="showupdate">
+          <div class="rightbox" *ngIf="user">
+
+            <label><b>First Name</b></label>
+            <div class="form-group">
+              <input type="text" class="form-control" [(ngModel)]="user.nom" required #nom="ngModel" />
+            </div>
+            <div class="alert alert-danger" *ngIf="nom.invalid && nom.touched">
+              <div *ngIf="nom.errors.required"> First Name Is a Required Field ! </div>
+            </div>
+
+            <label><b>Last Name</b></label>
+            <div class="form-group">
+              <input type="text" class="form-control" [(ngModel)]="user.prenom" required #prenom="ngModel" />
+            </div>
+            <div class="alert alert-danger" *ngIf="prenom.invalid && prenom.touched">
+              <div *ngIf="prenom.errors.required"> Last Name Is a Required Field ! </div>
+            </div>
+
+            <label><b>Title</b></label>
+            <div class="form-group">
+              <input type="text" class="form-control" [(ngModel)]="user.titre" />
+            </div>
+
+            <label><b>Email</b></label>
+            <div class="form-group">
+              <input type="text" class="form-control" [(ngModel)]="user.email" required #email="ngModel" pattern="[a-zA-Z0-9-.]+@[a-zA-Z0-9]+.[a-zA-Z0-9]{2,4}"/>
+            </div>
+            <small id="emailHelp" class="form-text text-muted">We don't share you email adress to others</small>
+            <br>
+            <div class="alert alert-danger" *ngIf="email.invalid && email.touched">
+              <div *ngIf="email.errors.required"> Email Is a required Field ! </div>
+              <div *ngIf="email.errors.pattern"> Invalid Email </div>
+            </div>
+
+            <label><b>Birth Date</b></label>
+            <div class="form-group">
+              <input type="date" class="form-control" [(ngModel)]="user.dateNaissance" />
+            </div>
+
+            <label><b>Tel</b></label>
+            <div class="form-group">
+              <input type="text"  class="form-control" [(ngModel)]="user.tel" />
+            </div>
+
+            <label><b>Pays</b></label>
+            <div class="form-group">
+              <input type="text" class="form-control" [(ngModel)]="user.paye" />
+            </div>
+
+            <label><b>City</b></label>
+            <div class="form-group">
+              <input type="text" class="form-control" [(ngModel)]="user.ville" />
+            </div>
+
+            <label><b>Street</b></label>
+            <div class="form-group">
+              <input type="text" class="form-control" [(ngModel)]="user.rue" />
+            </div>
+
+            <label><b>Post Number</b></label>
+            <div class="form-group">
+              <input type="text" class="form-control" [(ngModel)]="user.codePostal" />
+            </div>
+
+            <label><b>Community Life</b></label>
+            <div class="form-group">
+              <input type="text" class="form-control" [(ngModel)]="user.softSkills" />
+            </div>
+
+            <label><b>SEX</b></label>
+            <div class="form-group">
+              <select id="sujet" type="text" class="form-control" [(ngModel)]="user.sex">
+                <option value="HOMME" class="form-control" id="option">HOMME</option>
+                <option value="FEMME" class="form-control" id="option">FEMME</option>
+                <option value="NOT_SPECIFIED" class="form-control" id="option">NOT_SPECIFIED</option>
+              </select>
+            </div>
+
+            <label><b>Bio</b></label>
+            <div class="form-group">
+              <textarea type="text" class="form-control" style="height: 120px !important" [(ngModel)]="user.bio" ></textarea>
+            </div>
+
+            <div>
+              <label><b>Skills</b></label>
+              <div class="skills1">
+                <input style="width: 200px;" type="text" class="form-controle" [(ngModel)]="user.skills[0]">&nbsp; &nbsp; &nbsp; &nbsp;
+                <input style="width: 200px;" type="text" class="form-controle" [(ngModel)]="user.skills[1]">&nbsp; &nbsp; &nbsp; &nbsp;
+                <input style="width: 200px;" type="text" class="form-controle" [(ngModel)]="user.skills[2]">&nbsp; &nbsp; &nbsp; &nbsp;
+              </div>
+              <div class="skills1">
+                <input style="width: 200px;" type="text" class="form-controle" [(ngModel)]="user.skills[3]">&nbsp; &nbsp; &nbsp; &nbsp;
+                <input style="width: 200px;" type="text" class="form-controle" [(ngModel)]="user.skills[4]">&nbsp; &nbsp; &nbsp; &nbsp;
+                <input style="width: 200px;" type="text" class="form-controle" [(ngModel)]="user.skills[5]">&nbsp; &nbsp; &nbsp; &nbsp;
+              </div>
+            </div>
+
+            <button class="btn-primary" type="submit" (click)="updateProfile(user, id)" >UPDATE</button>
+
+            <div class="alert alert-success" [hidden]="showmsg" >
+              {{ msg }}
+            </div>
+          </div>
+      </div>
+
+      <!-- Change Password-->
+      <form name="user" #u="ngForm" (ngSubmit)="changeMDP()">
+        <div *ngIf="showchangepwd">
+          <div class="rightbox" *ngIf="user">
+
+            <label><b>Old Password</b></label>
+            <div class="form-group">
+              <input matInput [type]="hideop ? 'password' : 'text'" type="password" class="form-control" name="aMdp" [(ngModel)]="user.aMdp" #aMdp="ngModel" ngModel   required/>
+              <a style="margin-left: 10px; margin-top: 10px" class="material-icons" matSuffix (click)="hideop = !hideop">{{ hideop ? "Show" : "Hide" }}</a>
+            </div>
+            <br>
+            <div class="alert alert-danger" *ngIf="aMdp.invalid && aMdp.touched" >
+              <div *ngIf="aMdp.errors.required"> Old Password Is a required Field ! </div>
+            </div>
+
+            <label><b>New Password</b></label>
+            <div class="form-group">
+              <input matInput [type]="hidenp ? 'password' : 'text'" type="password" class="form-control"  name="nMdp" [(ngModel)]="user.nMdp" #nMdp="ngModel" ngModel required maxlength="20" minlength="8"/>
+              <a style="margin-left: 10px; margin-top: 10px" class="material-icons" matSuffix (click)="hidenp = !hidenp" >{{ hidenp ? "Show" : "Hide" }}</a>
+            </div>
+            <br>
+            <div class="alert alert-danger" *ngIf="nMdp.invalid && nMdp.touched" >
+              <div *ngIf="nMdp.errors.required"> New Password Is a required Field ! </div>
+              <div *ngIf="nMdp.errors.minlength"> New Password must more then 8 characters </div>
+            </div>
+
+            <label><b>Confirm New Password</b></label>
+            <div class="form-group">
+              <input matInput [type]="hidecnp ? 'password' : 'text'" type="password" class="form-control" name="cNMdp" [(ngModel)]="user.cNMdp" #cNMdp="ngModel" ngModel required maxlength="20" minlength="8"/>
+              <a style="margin-left: 10px; margin-top: 10px" class="material-icons" matSuffix (click)="hidecnp = !hidecnp" >{{ hidecnp ? "Show" : "Hide" }}</a>
+            </div>
+            <div class="alert alert-danger" *ngIf="cNMdp.invalid && cNMdp.touched" >
+              <div *ngIf="cNMdp.errors.required"> New Password Is a required Field ! </div>
+              <div *ngIf="cNMdp.errors.minlength"> New Password must more then 8 characters </div>
+            </div>
+            <small id="emailHelp" class="form-text text-muted">All Password must be in 8-30 charactere arange</small>
+            <br>
+
+            <button class="btn btn-primary"  type="submit" (click)="changeMDP()" [disabled]="cNMdp.invalid || nMdp.invalid || aMdp.invalid" >UPDATE</button>
+            <div class="alert alert-success" [hidden]="showmsg" style=" width: 400px; margin-left: 200px; text-align: center; border-radius: 15px; margin-top: 40px;">
+              {{ msg }}
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <!-- Change Profile Image-->
+      <div *ngIf="showprofileimage">
+        <div class="rightbox" *ngIf="user">
+          <div class="picture-container">
+            <div class="picture">
+              <img src="http://localhost:9091/User/{{ user.profileImage }}" class="picture-src" id="wizardPicturePreview" title=""/>
+              <input type="file"   name="file" id="wizard-picture" (change)="onFileSelected($event)" aria-invalid="false" class="valid" accept="image/*" />
+            </div>
+            <h6>Choose Picture</h6>
+          </div>
+          <div>
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="goo">
+              <defs>
+                <filter id="goo">
+                  <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+                  <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo" />
+                  <feComposite in="SourceGraphic" in2="goo"/>
+                </filter>
+              </defs>
+            </svg>
+            </div>
+            <button type="submit" (click)="uploadProfileImage()" class="fill">Update</button>
+         <div class="alert alert-success" [hidden]="showmsg" style=" width: 400px; margin-left: 0px; text-align: center; border-radius: 15px; margin-top: 40px;">
+            {{ msg }}
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Change Cover Imgae-->
+      <div *ngIf="showcoverimage">
+        <div class="rightbox" *ngIf="user">
+          <div class="picture-container">
+            <div class="picture">
+              <img src="http://localhost:9091/User/{{ user.coverImage }}" class="picture-src" id="wizardPicturePreview" title=""/>
+              <input type="file"   name="file" id="wizard-picture" (change)="onFileSelected($event)" aria-invalid="false" class="valid" accept="image/*" />
+            </div>
+            <h6>Choose Picture</h6>
+          </div>
+          <button type="submit" (click)="uploadCoverImage()" class="fill">Update</button>
+          <div class="alert alert-success" [hidden]="showmsg" style=" width: 400px; margin-left: 0px; text-align: center; border-radius: 15px; margin-top: 40px;">
+            {{ msg }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Change Institut Imgae-->
+      <div *ngIf="showinstitutimage">
+        <div class="rightbox" *ngIf="user">
+          <div class="picture-container">
+            <div class="picture">
+              <img src="http://localhost:9091/User/{{ user.institutImage }}" class="picture-src" id="wizardPicturePreview" title=""/>
+              <input type="file"  (change)="onFileSelected($event)"  name="file" id="wizard-picture" aria-invalid="false" class="valid" accept="image/*" />
+            </div>
+            <h6>Choose Picture</h6>
+          </div>
+          <button type="submit" (click)="uploadInstitutImage()" class="fill">Update</button>
+          <div class="alert alert-success" [hidden]="showmsg"  style=" width: 400px; margin-left: 0px; text-align: center; border-radius: 15px; margin-top: 40px;">
+            {{ msg }}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+

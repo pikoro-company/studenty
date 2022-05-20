@@ -1,0 +1,12 @@
+<app-header *ngIf="showHead"></app-header>
+<div class="row" *ngIf="showSidebar" style="margin:0% !important;">
+  <div  class="col-2" >
+    <app-sidebar ></app-sidebar>
+  </div>
+  <div class="col-10" >
+    <router-outlet  ></router-outlet>
+
+  </div>
+</div>
+<router-outlet *ngIf="showSidebar==false"></router-outlet>
+<app-footer *ngIf="showHead"></app-footer>

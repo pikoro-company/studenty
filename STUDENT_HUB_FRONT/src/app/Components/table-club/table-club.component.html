@@ -1,0 +1,221 @@
+
+<!-- Page wrapper/Container Section -->
+<div class="container">
+  <form>
+    <button  type="button" class="btn btn-secondary" onclick="history.back()">
+      <a href="/home/university"></a><fa-icon [icon]="faUndo"  class="material-icons"></fa-icon> Go back!
+    </button>
+  </form>
+  <div class="search-wrapper">
+    <input type="text" #myInput [(ngModel)]="nom" (input)="SearchClubByName()" class="search-input" placeholder="Search …" />
+    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="feather feather-search" viewBox="0 0 24 24" >
+      <defs></defs>
+      <circle cx="11" cy="11" r="8"></circle>
+      <path d="M21 21l-4.35-4.35"></path>
+    </svg>
+  </div>
+  <div class="p-2 bd-highlight">
+    <button type="button" class="btn btn-secondary" (click)="open(content)">Add Member</button>
+  </div>
+  <small><b>NB:</b> if you want to hide a member make status to true</small>
+  <h5>{{nClubs}} Club</h5>
+
+	<!-- Responsive Table Section -->
+	<table class="responsive-table">
+		<!-- Responsive Table Header Section -->
+		<thead class="responsive-table__head">
+			<tr class="responsive-table__row">
+				<th class="responsive-table__head__title responsive-table__head__title--name">Full Name
+					<svg version="1.1" class="up-arrow" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+						<path d="M374.176,110.386l-104-104.504c-0.006-0.006-0.013-0.011-0.019-0.018c-7.818-7.832-20.522-7.807-28.314,0.002c-0.006,0.006-0.013,0.011-0.019,0.018l-104,104.504c-7.791,7.829-7.762,20.493,0.068,28.285    c7.829,7.792,20.492,7.762,28.284-0.067L236,68.442V492c0,11.046,8.954,20,20,20c11.046,0,20-8.954,20-20V68.442l69.824,70.162c7.792,7.829,20.455,7.859,28.284,0.067C381.939,130.878,381.966,118.214,374.176,110.386z" />
+					</svg>
+				</th>
+        <th class="responsive-table__head__title responsive-table__head__title--status">Status</th>
+				<th class="responsive-table__head__title responsive-table__head__title--status">Email</th>
+				<th class="responsive-table__head__title responsive-table__head__title--types">Cin</th>
+				<th class="responsive-table__head__title responsive-table__head__title--update">Created at</th>
+				<th class="responsive-table__head__title responsive-table__head__title--country">Tel</th>
+			</tr>
+		</thead>
+		<!-- Responsive Table Body Section -->
+		<tbody class="responsive-table__body">
+			<tr class="responsive-table__row" *ngFor="let u of ListClub; let i = index">
+				<td class="responsive-table__body__text responsive-table__body__text--name">
+          <img    src="http://localhost:9091/User/{{ u.profileImage }}" class="user-icon" />
+					{{ u.nom }} {{u.prenom}}
+				</td>
+        <a *ngIf="u.desactiver"  href="/home/table-club" (click)="activerUser(u._id)" >
+				<td class="responsive-table__body__text responsive-table__body__text--status"><span class="status-indicator status-indicator--active"></span>{{ u.desactiver }}</td></a>
+        <a *ngIf="!u.desactiver" href="/home/table-club" (click)="activerUser(u._id)" >
+          <td  class="responsive-table__body__text responsive-table__body__text--status"><span class="status-indicator status-indicator--inactive"></span>{{u.desactiver}}</td></a>
+				<td class="responsive-table__body__text responsive-table__body__text--types">{{ u.email}}</td>
+				<td class="responsive-table__body__text responsive-table__body__text--update">{{ u.cin }}</td>
+				<td class="responsive-table__body__text responsive-table__body__text--country">{{ u.dateNaissance }}</td>
+        <td class="responsive-table__head__title responsive-table__head__title--types">{{ u.tel }}</td>
+        <td class="responsive-table__body__text responsive-table__body__text--actions">
+          <a >
+            <fa-icon [icon]="faDel"  class="material-icons" style="color: red;" (click)="openalert(contentalert); setIdUser(u._id)"></fa-icon>
+          </a>
+          <fa-icon [icon]="faEdit"  class="material-icons" style="color: #03C1AD;margin-left: 40px;" (click)="opene(contente); setIdUser(u._id)"></fa-icon>
+        </td>
+
+			</tr>
+		</tbody>
+	</table>
+</div>
+<!--Add-->
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add Club</h4>
+    <a href="/home/table-club"><button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button></a>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="nom">Short Name</label>
+        <input type="text" formControlName="nom" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.nom.errors }" />
+        <div *ngIf="submitted && f.nom.errors" class="invalid-feedback">
+          <div *ngIf="f.nom.errors.required">Short Name is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="prenom">Full Name</label>
+        <input type="text" formControlName="prenom" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.prenom.errors }"/>
+        <div *ngIf="submitted && f.prenom.errors" class="invalid-feedback">
+          <div *ngIf="f.prenom.errors.required">Full Name is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="cin">Title</label>
+        <input type="text" formControlName="titre" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.titre.errors }" />
+        <div *ngIf="submitted && f.titre.errors" class="invalid-feedback">
+          <div *ngIf="f.titre.errors.required">cin is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="tel">Phone Number</label>
+        <input type="text" formControlName="tel" class="form-control" ng2TelInpul [ngClass]="{ 'is-invalid': submitted && f.tel.errors }" />
+        <div *ngIf="submitted && f.tel.errors" class="invalid-feedback">
+          <div *ngIf="f.tel.errors.required">Phone Number is required</div>
+          <div *ngIf="f.tel.errors.minlength"> Tel must be at least 8 characters</div>
+          <div *ngIf="f.tel.errors.maxlength"> Tel must be at least 8 characters</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="cin">CIN</label>
+        <input type="text" formControlName="cin" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.cin.errors }" />
+        <div *ngIf="submitted && f.cin.errors" class="invalid-feedback">
+          <div *ngIf="f.cin.errors.required">CIN is required</div>
+          <div *ngIf="f.cin.errors.minlength"> CIN must be at least 8 characters </div>
+          <div *ngIf="f.cin.errors.maxlength"> CIN must be at least 8 characters </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+          <div *ngIf="f.email.errors.required">Email is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="dateNaissance">Birth Date</label>
+        <input type="date" formControlName="dateNaissance" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.dateNaissance.errors }" />
+        <div *ngIf="submitted && f.dateNaissance.errors" class="invalid-feedback">
+          <div *ngIf="f.dateNaissance.errors.required">Date is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-outline-dark"> Add </button>
+        <a class="btn btn-link" type="reset" href="/home/table-club" (click)="modal.dismiss('Cross click')">Cancel</a>
+      </div>
+      <div [hidden]="hidemsg" class="alert alert-success"><p>{{msg}}</p></div>
+    </form>
+  </div>
+</ng-template>
+
+<!--Edit-->
+<ng-template #contente let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add Club</h4>
+    <a href="/home/table-club"><button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button></a>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="form" (ngSubmit)="onEdit()">
+      <div class="form-group">
+        <label for="nom">Short Name</label>
+        <input type="text" formControlName="nom" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.nom.errors }" />
+        <div *ngIf="submitted && f.nom.errors" class="invalid-feedback">
+          <div *ngIf="f.nom.errors.required">Short Name is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="prenom">Full Name</label>
+        <input type="text" formControlName="prenom" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.prenom.errors }"/>
+        <div *ngIf="submitted && f.prenom.errors" class="invalid-feedback">
+          <div *ngIf="f.prenom.errors.required">Full Name is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="cin">Title</label>
+        <input type="text" formControlName="titre" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.titre.errors }" />
+        <div *ngIf="submitted && f.titre.errors" class="invalid-feedback">
+          <div *ngIf="f.titre.errors.required">cin is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="tel">Phone Number</label>
+        <input type="text" formControlName="tel" class="form-control" ng2TelInpul [ngClass]="{ 'is-invalid': submitted && f.tel.errors }" />
+        <div *ngIf="submitted && f.tel.errors" class="invalid-feedback">
+          <div *ngIf="f.tel.errors.required">Phone Number is required</div>
+          <div *ngIf="f.tel.errors.minlength"> Tel must be at least 8 characters</div>
+          <div *ngIf="f.tel.errors.maxlength"> Tel must be at least 8 characters</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="cin">CIN</label>
+        <input type="text" formControlName="cin" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.cin.errors }" />
+        <div *ngIf="submitted && f.cin.errors" class="invalid-feedback">
+          <div *ngIf="f.cin.errors.required">CIN is required</div>
+          <div *ngIf="f.cin.errors.minlength"> CIN must be at least 8 characters </div>
+          <div *ngIf="f.cin.errors.maxlength"> CIN must be at least 8 characters </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+          <div *ngIf="f.email.errors.required">Email is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="dateNaissance">Birth Date</label>
+        <input type="date" formControlName="dateNaissance" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.dateNaissance.errors }" />
+        <div *ngIf="submitted && f.dateNaissance.errors" class="invalid-feedback">
+        </div>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-outline-dark"> Update </button>
+        <a class="btn btn-link" type="reset" href="/home/table-club" (click)="modal.dismiss('Cross click')">Cancel</a>
+      </div>
+      <div [hidden]="hidemsg" class="alert alert-success"><p>{{msg}}</p></div>
+    </form>
+  </div>
+</ng-template>
+
+<!--delete-->
+<ng-template #contentalert let-modal>
+  <div class="modal-header">
+    <h5 style="color: black; text-align: center;" class="modal-title" id="modal-basic-title">Are You Sur to delete this Club ?</h5>
+    <a href="/home/table-club">
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </a>
+  </div>
+  <div class="modal-body" >
+    <form>
+      <div class="form-group" style="align-items: center;">
+        <a style="color: red;" href="/home/table-club" class="btn btn-default" (click)="deleteUser(); modal.dismiss('Cross click')">Confirm</a>
+        <a style="color: green;" class="btn btn-link" class="btn btn-default" href="/home/table-club" (click)="modal.dismiss('Cross click')">Cancel</a>
+      </div>
+    </form>
+  </div>
+</ng-template>
